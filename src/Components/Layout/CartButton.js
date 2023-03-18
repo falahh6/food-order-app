@@ -6,11 +6,12 @@ const CartButton = (props) =>{
 
     const cartCtx = useContext(CartContext);
 
-    const numberOfCartItems = cartCtx.items.reduce((curNumber, item) => {
-        return curNumber + item.amount
-    }, 0);
+    const numberOfCartItems = cartCtx.items.length;
 
-    console.log(numberOfCartItems);
+    // reduce((curNumber, item) => {
+    //     return curNumber + item.amount
+    // }, 0);
+    // console.log(numberOfCartItems);
     return <button className={styles.button} onClick={props.onClick}>
                 <span className={styles.icon}> 
                     <CartIcon /> 

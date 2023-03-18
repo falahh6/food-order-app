@@ -13,7 +13,7 @@ const MealItemForm =  (props) =>{
         const enteredAmount = inputAmountRef.current.value;
         const enteredAmountNumber = +enteredAmount;
         
-        console.log(inputAmountRef);
+        // console.log(inputAmountRef);
         if(enteredAmount.trim().length === 0 || enteredAmountNumber < 1){
             setAmountIsValid(false)
             return;
