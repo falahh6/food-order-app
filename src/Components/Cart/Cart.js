@@ -31,7 +31,6 @@ const Cart = (props) =>{
     );
 
     return (
-       
         <Modal onClose={props.onClose}>
         {cartItems}
             <div className={styles.total}>
