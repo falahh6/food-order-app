@@ -3,13 +3,14 @@ import CartContext from "../../store/cart-context";
 import CartIcon from "../Cart/CartIcon";
 import styles from './CartButton.module.css';
 const CartButton = (props) =>{
-    const [isButtonHighlighted, setIsButtonHighlighted] = useState(true);
+    const [isButtonHighlighted, setIsButtonHighlighted] = useState(false);
 
     const cartCtx = useContext(CartContext);
 
     const { items } = cartCtx;
 
     const numberOfCartItems = items.length;
+    console.log(numberOfCartItems);
     // const numberOfCartItems = cartCtx.items.reduce((curNumber, item) => {
     //     return curNumber + item.amount
     // }, 0);
@@ -31,6 +32,7 @@ const CartButton = (props) =>{
     
     const btnClasses = `${styles.button} ${isButtonHighlighted ? styles.bump  : ''}`;
 
+    console.log(isButtonHighlighted);
     return <button className={btnClasses} onClick={props.onClick}>
                 <span className={styles.icon}> 
                     <CartIcon /> 
