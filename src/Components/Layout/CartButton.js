@@ -10,10 +10,10 @@ const CartButton = (props) =>{
     const { items } = cartCtx;
 
     const numberOfCartItems = items.length;
-    console.log(numberOfCartItems);
     // const numberOfCartItems = cartCtx.items.reduce((curNumber, item) => {
     //     return curNumber + item.amount
     // }, 0);
+    // console.log(numberOfCartItems);
 
    useEffect(()=>{
     if(items.length === 0){
@@ -25,14 +25,15 @@ const CartButton = (props) =>{
         setIsButtonHighlighted(false)
     }, 300);
 
-    return(
+    return (() =>{
         clearTimeout(timer)
-    )
+    })
    },[items])
-    
+
+//    console.log(isButtonHighlighted);
     const btnClasses = `${styles.button} ${isButtonHighlighted ? styles.bump  : ''}`;
 
-    console.log(isButtonHighlighted);
+    // console.log(isButtonHighlighted);
     return <button className={btnClasses} onClick={props.onClick}>
                 <span className={styles.icon}> 
                     <CartIcon /> 
