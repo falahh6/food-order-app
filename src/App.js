@@ -16,6 +16,7 @@ function App() {
   const cartCloseHandler = () => {
     setCartActive(false);
   }
+  
   return (
     <CartProvider>
       { cartActive && <Cart onClose={cartCloseHandler} />  }

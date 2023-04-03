@@ -30,6 +30,8 @@ const DUMMY_MEALS = [
     },
   ];
 
+  
+
 const AvailableMeals = () =>{
     const mealList = DUMMY_MEALS.map((meal) => (
         <MealItems 
