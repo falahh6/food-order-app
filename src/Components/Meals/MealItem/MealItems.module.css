@@ -22,3 +22,13 @@
     color: #ad5502;
     font-size: 1.25rem;
 }
+
+@media only screen and (max-width: 480px) {
+    .meal {
+        font-size: 12px;
+    }
+
+    .price {
+        font-size: 0.75rem;
+    }
+}
