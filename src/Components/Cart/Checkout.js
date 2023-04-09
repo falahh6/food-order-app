@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useState } from "react";
 import { useRef } from "react";
-import CartContext from "../../store/cart-context";
 import styles from './Checkout.module.css'
 
 const isEmpty = value => value.trim() === '';
@@ -15,34 +14,15 @@ const Checkout = (props) => {
         address : true,
         phonenumber : true
     })
-    const [orderedStatus, setOrderedStatus] = useState(false);
-
-    const cartCtx = useContext(CartContext);
-
+    
     const nameInputRef = useRef();
     const emailInputRef = useRef();
     const pincodeInputRef = useRef();
     const addressInputRef = useRef();
     const phonenumberInputRef = useRef();
 
-    const cartMeals = cartCtx.items.map((item)=>{
-        return (
-         {
-            name : item.name,
-            price : item.price
-         }
-        )
-     })
-
-     const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
-
-    const cartData = {
-        cartItems : cartMeals,
-        totalAmount : totalAmount
-     }
 
     const submitHandler = (event) => {
-       
         event.preventDefault();
        
         const enteredName = nameInputRef.current.value;
@@ -76,14 +56,13 @@ const Checkout = (props) => {
         }else if(!phonenumberIsValid){
             phonenumberInputRef.current.focus();
         }
-        
 
         const formIsValid = nameIsValid && emailIsValid && pincodeIsValid && addressIsValid && phonenumberIsValid;
 
         if(!formIsValid){
             return;
         }
-        
+
         const userData = {
             name : enteredName,
             email : enteredEmail,
@@ -91,30 +70,6 @@ const Checkout = (props) => {
             pincode : enteredPincode,
             phonenumber : enteredPhonenumber
          }
-        
-        const sendData = async ( userData, cartData) => {
-            try{
-
-
-                const orderedData = {
-                    userData,
-                    cartData
-                }
-                const response = await fetch('https://react-http-58c7d-default-rtdb.firebaseio.com/ReactMeals-orders.json', {
-                    method : 'POST',
-                    body : JSON.stringify(orderedData),
-                    headers : {
-                        'content-type' : 'application/json'
-                    }
-                })
-                const data = await response.json();
-                console.log('Order Placed', data.name);
-            } catch(error){
-                console.log('! Error Placing order', error)
-            }
-        }
-
-        sendData(userData, cartData);
 
         nameInputRef.current.value = '';
         emailInputRef.current.value = '';
@@ -122,13 +77,7 @@ const Checkout = (props) => {
         pincodeInputRef.current.value = '';
         phonenumberInputRef.current.value = '';
 
-        setOrderedStatus(true);
-    }
-
-    if(orderedStatus){
-        return (
-            <p>Order Placed</p>
-        )
+        props.onConfirm(userData);
     }
 
     const nameControlStyles = `${styles.control} ${
